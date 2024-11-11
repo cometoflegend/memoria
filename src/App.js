@@ -1,23 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
+import Tablero from './Tablero';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          JUEGO DE MEMORIA
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
+      <p>
+        <Tablero />
+      </p>
+      <footer className="App-header">
+        <p>
+        <a href="https://www.flaticon.com/free-icons/diamond-card" title="diamond card icons">Diamond card icons created by Md Tanvirul Haque - Flaticon</a>
+        </p>
+      </footer>
     </div>
   );
 }
