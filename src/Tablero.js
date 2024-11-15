@@ -1,7 +1,7 @@
 import Carta from './Carta';
 import './Carta.css';
 import './Tablero.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 
 const cartasFlippeadas = [
@@ -39,24 +39,14 @@ function Tablero() {
   const [cartasFlippeadasState, setCartasFlippeadas] = useState([]);
   const [cartasMatcheadas, setCartasMatcheadas] = useState([]);
 
-  const handleCartaClick = (id) => {
-    if (cartasFlippeadasState.length === 2) return; // No se hace nada si las cartas ya están flippeadas
-
-    const carta = cartas.find(carta => carta.id === id);
-
-    // Si la carta ya está emparejada, no se hace nada
-    if (cartasMatcheadas.includes(id) || cartasFlippeadasState.includes(id)) return;
-
-    // Voltear cartas
-    setCartasFlippeadas(prev => [...prev, id]);
-
-    // Si ya hay dos cartas volteadas, se verifica si coinciden
-    if (cartasFlippeadasState.length === 1) {
-      const firstCarta = cartas.find(carta => carta.id === cartasFlippeadasState[0]);
-      const secondCarta = carta;
+  useEffect(() => {
+    if (cartasFlippeadasState.length === 2) {
+      const [firstId, secondId] = cartasFlippeadasState;
+      const firstCarta = cartas.find(carta => carta.id === firstId);
+      const secondCarta = cartas.find(carta => carta.id === secondId);
 
       if (firstCarta.value === secondCarta.value) {
-        setCartasMatcheadas(prev => [...prev, firstCarta.id, secondCarta.id]);
+        setCartasMatcheadas(prev => [...prev, firstId, secondId]);
       }
 
       // Resetear tras pasar tiempo
@@ -64,20 +54,29 @@ function Tablero() {
         setCartasFlippeadas([]);
       }, 1000);
     }
+  }, [cartasFlippeadasState, cartas]);  
+
+  const handleCartaClick = (id) => {
+    if (cartasFlippeadasState.length === 2) return; // No se hace nada si las cartas ya están flippeadas
+
+    // Checkeo de si la carta matchea o está flippeada
+    if (cartasMatcheadas.includes(id) || cartasFlippeadasState.includes(id)) return;
+
+    setCartasFlippeadas(prev => [...prev, id]);
   };
 
   return (
     <div className="grid">
-    {cartas.map((carta) => (
-      <Carta
-        key={carta.id}
-        id={carta.id}
-        val={carta.value}
-        isFlipped={cartasFlippeadasState.includes(carta.id) || cartasMatcheadas.includes(carta.id)}
-        onClick={handleCartaClick}
-      />
-    ))}
-  </div>
+      {cartas.map((carta) => (
+        <Carta
+          key={carta.id}
+          id={carta.id}
+          val={carta.value}
+          isFlipped={cartasFlippeadasState.includes(carta.id) || cartasMatcheadas.includes(carta.id)}
+          onClick={handleCartaClick}
+        />
+      ))}
+    </div>
   );
 };
 
