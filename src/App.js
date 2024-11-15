@@ -5,16 +5,14 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          JUEGO DE MEMORIA
-        </p>
+        <p>JUEGO DE MEMORIA</p>
       </header>
-      <p>
-        <Tablero />
-      </p>
+      <Tablero />
       <footer className="App-header">
         <p>
-        <a href="https://www.flaticon.com/free-icons/diamond-card" title="diamond card icons">Diamond card icons created by Md Tanvirul Haque - Flaticon</a>
+          <a href="https://www.flaticon.com/free-icons/diamond-card" title="diamond card icons">
+            Diamond card icons created by Md Tanvirul Haque - Flaticon
+          </a>
         </p>
       </footer>
     </div>

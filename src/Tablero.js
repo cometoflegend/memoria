@@ -1,5 +1,6 @@
 import Carta from './Carta';
 import './Carta.css';
+import './Tablero.css';
 import React, { useState } from 'react';
 
 
@@ -67,16 +68,16 @@ function Tablero() {
 
   return (
     <div className="grid">
-      {cartas.map((carta) => (
-        <Carta
-          key={carta.id}
-          id={carta.id}
-          value={carta.value}
-          isFlipped={cartasFlippeadasState.includes(carta.id) || cartasMatcheadas.includes(carta.id)}
-          onClick={handleCartaClick}
-        />
-      ))}
-    </div>
+    {cartas.map((carta) => (
+      <Carta
+        key={carta.id}
+        id={carta.id}
+        val={carta.value}
+        isFlipped={cartasFlippeadasState.includes(carta.id) || cartasMatcheadas.includes(carta.id)}
+        onClick={handleCartaClick}
+      />
+    ))}
+  </div>
   );
 };
 
